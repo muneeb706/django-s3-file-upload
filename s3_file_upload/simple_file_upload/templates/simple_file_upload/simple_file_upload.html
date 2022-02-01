@@ -13,7 +13,7 @@
 
     <form action="/simple-file-upload/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h4><label for="image-file" class="form-label">Simple File Upload</label></h4>
+        <h4><label for="file" class="form-label">Simple File Upload</label></h4>
         {{form}}
         <br/><br/>
         <button class="btn btn-primary" type="submit">Upload</button>

@@ -7,7 +7,7 @@ UPLOAD_STATUS_CHOICES = (
 )
 
 
-class Image(models.Model):
-    file_path = models.ImageField(upload_to="images")
+class File(models.Model):
+    path = models.FileField(upload_to="files")
     upload_status = models.CharField(max_length=50, choices=UPLOAD_STATUS_CHOICES)
 
