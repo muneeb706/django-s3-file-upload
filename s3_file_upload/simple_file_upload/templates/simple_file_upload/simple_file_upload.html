@@ -13,15 +13,15 @@
 
     <div class="d-flex justify-content-center align-items-center h-75 w-75 mx-4">
 
-        <form id="file-upload-form" action="/simple-file-upload/" method="POST" enctype="multipart/form-data">
+        <form id="file-upload-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h4><label for="file" class="form-label">Simple File Upload</label></h4>
             {{form}}
             <br /><br />
-            <button class="btn btn-primary" type="submit">Upload</button>
+            <a class="btn btn-primary" id="file-upload-button">Upload</a>
             <br /><br />
             <div id="upload-status">
-                <h4>Upload Progress: 0%</h4>
+                <h5>Upload Progress: <span id="progress"></span>%</h5>
             </div>
         </form>
 
@@ -38,22 +38,60 @@
 
 <script>
     $(document).ready(function () {
-        $("#file-upload-form").submit(function (event) {
-            let formData;
+        let fileName
+        let updateProgressInterval
 
-            formData = new FormData();
-            formData.append('file', $('#id_file').prop('files'));
-            formData.append('csrfmiddlewaretoken', $("input[name=csrfmiddlewaretoken]").val());
+        $('#upload-status').hide()
+        
+        $("#file-upload-button").click(function (event) {
+
+            var formData = new FormData()
+            formData.append('file', $('#id_file').prop('files')[0])
+            formData.append('csrfmiddlewaretoken', $("input[name=csrfmiddlewaretoken]").val())
 
             $.ajax({
-                url: '/simple-file-upload/',
-                data: formData,
+                url: "/simple-file-upload/",
                 type: 'POST',
-                success: function (data) { }
+                data: formData,
+                // talk about process data and contenttype in blog
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res);
+                }
             });
 
-            event.preventDefault()
+            fileName = $('#id_file').prop('files')[0].name
+            
+            $('#upload-status').show()
+
+            updateProgressInterval = setInterval(updateProgress, 300);
+            
         })
+
+        function updateProgress() {
+            $.ajax({
+                url: '/simple-file-upload/progress?filename='+fileName,
+                async: true,
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.progress_perc) {
+                        $('#progress').text(response.progress_perc)
+                    }
+
+                    if (response.progress_perc == 100) {
+                        clearInterval(updateProgressInterval)
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    alert('Request to fetch file upload progress failed: ' + xhr.responseText);
+                    console.log(status)
+                    console.log(error.message)
+                }
+            });
+        }
     });
 </script>
 
