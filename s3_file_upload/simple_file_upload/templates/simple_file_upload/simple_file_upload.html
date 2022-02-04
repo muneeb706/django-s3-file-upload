@@ -21,7 +21,8 @@
             <a class="btn btn-primary" id="file-upload-button">Upload</a>
             <br /><br />
             <div id="upload-status">
-                <h5>Upload Progress: <span id="progress"></span>%</h5>
+                <h6>Upload Progress: <span id="progress"></span>%</h6>
+                <h6>Total Time Taken (s): <span id="time-taken">Calculating ....</span></h6>
             </div>
         </form>
 
@@ -42,7 +43,7 @@
         let updateProgressInterval
 
         $('#upload-status').hide()
-        
+
         $("#file-upload-button").click(function (event) {
 
             var formData = new FormData()
@@ -62,23 +63,23 @@
             });
 
             fileName = $('#id_file').prop('files')[0].name
-            
+
             $('#upload-status').show()
 
             updateProgressInterval = setInterval(updateProgress, 300);
-            
+
         })
 
         function updateProgress() {
             $.ajax({
-                url: '/simple-file-upload/progress?filename='+fileName,
+                url: '/simple-file-upload/progress?filename=' + fileName,
                 async: true,
                 dataType: "json",
                 contentType: "application/json",
                 success: function (response) {
-                    if (response.progress_perc) {
-                        $('#progress').text(response.progress_perc)
-                    }
+
+                    $('#progress').text(response.progress_perc)
+                    $('#time-taken').text(response.time_taken_s)
 
                     if (response.progress_perc == 100) {
                         clearInterval(updateProgressInterval)

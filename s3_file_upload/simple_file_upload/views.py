@@ -27,7 +27,9 @@ class SimpleFileUploadView(View):
 def progress(request):
     if request.method == 'GET' and request.GET['filename']:
         file_name = request.GET['filename']
-        return HttpResponse(json.dumps({'progress_perc': cache.get(file_name)['progress_perc']}),
+        file_upload_data = cache.get(file_name)
+        return HttpResponse(json.dumps({'progress_perc': file_upload_data['progress_perc'],
+                                        'time_taken_s': round(file_upload_data['time_taken_s'], 2)}),
                             content_type="application/json")
 
     else:
