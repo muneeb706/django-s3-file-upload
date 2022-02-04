@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3tp%gy1dp%e%h3(dv95*ugvy13$ij^)!7-8e)pa5db#8xw(!6b'
+SECRET_KEY = '#########################'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,6 +120,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#################
+# File upload
+
+from django.conf import global_settings
+FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] + global_settings.FILE_UPLOAD_HANDLERS
+
+################
 #################
 # Django Storages
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
