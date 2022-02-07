@@ -2,6 +2,7 @@ from django.core.files.uploadhandler import FileUploadHandler
 from django.core.cache import cache
 from time import perf_counter
 
+
 class FileUploadProgressHandler(FileUploadHandler):
 
     def __init__(self, request=None):
@@ -9,7 +10,6 @@ class FileUploadProgressHandler(FileUploadHandler):
         self.file_name = None
         self.file_size = None
         self.perf_counter_start = perf_counter()
-        self.perf_counter_end = None
 
     def new_file(self, field_name, file_name, content_type, content_length, charset=None, content_type_extra=None):
         self.file_name = file_name

@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'simple_file_upload'
+    's3_file_upload',
+    'simple_file_upload',
+    'multipart_upload'
 ]
 
 MIDDLEWARE = [
