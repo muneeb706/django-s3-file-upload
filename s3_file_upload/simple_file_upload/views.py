@@ -1,9 +1,10 @@
 import json
 
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse
-from django.core.cache import cache
+from shared_utils.utils import get_upload_status_from_cache
+
 from .forms import SimpleFileUploadForm
 from .models import File
 
@@ -12,8 +13,10 @@ class SimpleFileUploadView(View):
 
     def get(self, request):
         form = SimpleFileUploadForm()
-        return render(request, "simple_file_upload/simple_file_upload.html", {
-            "form": form
+        return render(request, "file_upload_form.html", {
+            "form": form,
+            "title": 'Simple File Upload',
+            "upload_url": '/simple_file_upload/'
         })
 
     def post(self, request):
@@ -26,12 +29,8 @@ class SimpleFileUploadView(View):
 
 def progress(request):
     if request.method == 'GET' and request.GET['filename']:
-        file_name = request.GET['filename']
-        file_upload_data = cache.get(file_name)
-        return HttpResponse(json.dumps({'progress_perc': file_upload_data['progress_perc'],
-                                        'time_taken_s': round(file_upload_data['time_taken_s'], 2)}),
+        filename = request.GET['filename']
+        return HttpResponse(json.dumps(get_upload_status_from_cache(filename)),
                             content_type="application/json")
-
     else:
-        return HttpResponse(json.dumps({'error': 'Only Get request with filename parameter is allowed '}),
-                            content_type="application/json")
+        return HttpResponseBadRequest('Invalid Request Method. Only GET is allowed')

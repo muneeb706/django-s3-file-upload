@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,7 +56,7 @@ ROOT_URLCONF = 's3_file_upload.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,11 +126,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # File upload
 
 from django.conf import global_settings
-FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] + global_settings.FILE_UPLOAD_HANDLERS
+#TODO: Explain
+FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] \
+                       + global_settings.FILE_UPLOAD_HANDLERS
 
 ################
 #################
 # Django Storages
+#TODO: Refer a link how to set these environment variables
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
