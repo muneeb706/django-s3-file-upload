@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import boto3
+
+boto3.set_stream_logger('')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,8 +130,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from django.conf import global_settings
 #TODO: Explain
-FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] \
-                       + global_settings.FILE_UPLOAD_HANDLERS
+# FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] \
+#                        + global_settings.FILE_UPLOAD_HANDLERS
 
 ################
 #################
@@ -137,9 +140,4 @@ FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgress
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_SIGNATURE_VERSION = os.environ.get('AWS_S3_SIGNATURE_VERSION')
-AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
-AWS_S3_FILE_OVERWRITE = True if os.environ.get('AWS_S3_FILE_OVERWRITE') == 'True' else False
-AWS_S3_VERIFY = True if os.environ.get('AWS_S3_VERIFY') == 'True' else False
-DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
 ################
