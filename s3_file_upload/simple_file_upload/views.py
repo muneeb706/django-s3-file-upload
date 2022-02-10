@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.views import View
 
 from .forms import SimpleFileUploadForm
-from shared_utils.s3fileupload import S3Upload
+from shared_utils.s3fileuploader import S3Uploader
 
-s3uploader = S3Upload()
+s3uploader = S3Uploader()
 
 
 class SimpleFileUploadView(View):

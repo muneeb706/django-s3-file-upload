@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.views import View
 
 from .forms import MultipartUploadForm
-from shared_utils.s3fileupload import S3ParallelMultipartUpload
+from shared_utils.s3fileuploader import S3ParallelMultipartUploader
 
-s3uploader = S3ParallelMultipartUpload()
+s3uploader = S3ParallelMultipartUploader()
 
 
 class MultipartUploadView(View):

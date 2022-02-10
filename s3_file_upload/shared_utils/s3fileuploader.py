@@ -5,7 +5,7 @@ from .progresshandler import ProgressHandler
 from s3_file_upload import settings
 
 
-class S3Upload(object):
+class S3Uploader(object):
 
     def __init__(self):
         # TODO: briefly mention purpose of boto3
@@ -37,10 +37,10 @@ class S3Upload(object):
         return None
 
 
-class S3ParallelMultipartUpload(S3Upload):
+class S3ParallelMultipartUploader(S3Uploader):
 
     def __init__(self):
-        super(S3ParallelMultipartUpload, self).__init__()
+        super(S3ParallelMultipartUploader, self).__init__()
 
         # TODO: talk about config in a bit detail, how to decide concurrency and threshold
         self.config = TransferConfig(
