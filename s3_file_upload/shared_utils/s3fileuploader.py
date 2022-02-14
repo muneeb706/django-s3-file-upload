@@ -8,7 +8,6 @@ from s3_file_upload import settings
 class S3Uploader(object):
 
     def __init__(self):
-        # TODO: briefly mention purpose of boto3
         self.s3 = boto3.client('s3',
                                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
                                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY, )

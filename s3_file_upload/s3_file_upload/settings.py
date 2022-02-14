@@ -125,18 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#################
-# File upload
-
-from django.conf import global_settings
-#TODO: Explain
-# FILE_UPLOAD_HANDLERS = ['simple_file_upload.fileuploadhandler.FileUploadProgressHandler'] \
-#                        + global_settings.FILE_UPLOAD_HANDLERS
-
-################
-#################
-# Django Storages
-#TODO: Refer a link how to set these environment variables
+###### AWS ######
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')

@@ -1,7 +1,6 @@
 import threading
 from time import perf_counter
 
-# TODO: Explain Cache, why do you need to use it
 from django.core.cache import cache
 
 
@@ -20,7 +19,6 @@ class ProgressHandler(object):
             'time_taken_s': 0
         })
 
-        # TODO: Explain why do you need a lock
         self._lock = threading.Lock()
 
     def __call__(self, bytes_amount):
