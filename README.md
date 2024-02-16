@@ -24,8 +24,3 @@ Now, the project should be up and running. By default django server runs in <b>l
 
 - simple_file_upload app by typing http://localhost:8000/simple-file-upload address in the address bar of the browser.
 - multipart_upload app by typing http://localhost:8000/multipart-upload address in the address bar of the browser.
-
-
-Visit [File Upload Time Improvement with AWS S3 Multipart Parallel Upload](https://muneebshahid.com/improvement-with-s3-multipart-parallel-upload/) for detailed explanation.
-
-Have Fun :smile:
